@@ -3,7 +3,7 @@ from tkinter import messagebox
 from tkinter import ttk
 # messagebox.showinfo("hello","welcome to picam controller")
 gui = tk.Tk()
-gui.configure(background="light blue")
+gui.configure(background="light grey")
 gui.title("picam controller")
 gui.geometry("640x480")
 
@@ -62,7 +62,7 @@ focus_slider.set(0)
 focus_slider.place(relx=0.3,rely=0.55,relwidth=0.5)
 
 ################################################## canvas #################################
-camera_view_label = ttk.Label(gui, text='CAM VIEW', background='light blue', font='bold')
+camera_view_label = ttk.Label(gui, text='CAM VIEW', background='light grey', font='bold')
 camera_view_label.place(relx=0.425,rely=0.45)
 
 
