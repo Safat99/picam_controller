@@ -1,0 +1,19 @@
+1. Turn ON IR. Perform focusing in a dark env. 
+2. After focusing complete, Press SNAP. 
+3. When SNAP is pressed, White LED Flash and photo is captured.
+4. After photo is captured, IR is turned OFF automatically.
+
+
+------------
+IR ta use hobe ekta dark environment e focusing korar jonno
+----
+
+pi pin >>>
+3,4,5,6 IR and white LED control pin >>
+
+*camera is connected to pi with USB
+Email: ihsan.cayli@outlook.com
+
+Pasw.:794613ic
+
+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
