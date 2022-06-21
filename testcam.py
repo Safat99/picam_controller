@@ -8,6 +8,7 @@ if not cap.isOpened():
 
 while(True):
 	ret , frame = cap.read()
+	frame = cv2.resize(frame, (640,480))
 	if not ret:
 		print('Can\'t receive frame....Exiting')
 		break
