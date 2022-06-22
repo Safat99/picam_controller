@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+
 # messagebox.showinfo("hello","welcome to picam controller")
 gui = tk.Tk()
 gui.configure(background="light grey")
@@ -11,9 +12,19 @@ frame = tk.Frame(gui, background='white')
 frame.place(relheight=0.4, relwidth=0.7, relx=0.15, rely=0)
 # frame.pack()
 ########################################################################
-button1 = tk.Button(frame, text='IR', fg='white', bg='black')
-button1.place(relx=0.1,rely=0.2, relwidth=0.125)
+IR_isON = False
+def ir_toggle():
+    global IR_isON 
 
+    if IR_isON == True: ## button is pressed
+        button1.config(text='IR OFF')
+        IR_isON = False
+    else:
+        button1.config(text="IR ON")
+        IR_isON = True
+
+button1 = tk.Button(frame, text='IR OFF', fg='white', bg='black', command=ir_toggle)
+button1.place(relx=0.1,rely=0.2, relwidth=0.125)
 #####################################################################
 current_value = tk.DoubleVar()
 
