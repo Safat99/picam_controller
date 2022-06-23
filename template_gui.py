@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import Label, messagebox
 from tkinter import ttk
-from PIL import ImageTk, Image
-import cv2
 
 # messagebox.showinfo("hello","welcome to picam controller")
 gui = tk.Tk()
@@ -13,12 +11,6 @@ gui.geometry("640x480")
 frame = tk.Frame(gui, background='white')
 frame.place(relheight=0.4, relwidth=0.7, relx=0.15, rely=0)
 # frame.pack()
-#####################################################33
-cap = cv2.VideoCapture(0)
-if not cap.isOpened():
-    print('Cannot open camera')
-    exit()
-
 ########################################################################
 IR_isON = False
 def ir_toggle():
@@ -38,6 +30,7 @@ current_value = tk.DoubleVar()
 
 def get_current_value():
     return '{:.1f}'.format(current_value.get())
+    # return '{:.1f}'.format(current_value.get()*15//100) ## if want to display from 0 to 15
 
 value_label = ttk.Label(frame, text=get_current_value(), background='white')
 value_label.place(relx=0.5, rely=0.15)
@@ -45,7 +38,9 @@ value_label.place(relx=0.5, rely=0.15)
 def slider_changed(event):
     value_label.configure(text=get_current_value())
     # print(brightness_slider.get()) ##for getting the value
+    # print(brightness_slider.get()*15//100) ## for mapping
 
+    
 slider_label = ttk.Label(frame, text='Brightness:', background='white')
 slider_label.place(relx = 0.3, rely=0.15)
 
@@ -54,7 +49,6 @@ brightness_slider.set(0)
 brightness_slider.place(relx=0.3, rely=0.25, relwidth=0.5)
 
 #####################################################################
-
 button_snap = tk.Button(frame, text='SNAP', bg='black', fg='white')
 button_snap.place(relx=0.1,rely=0.5)
 
@@ -84,23 +78,10 @@ focus_slider.place(relx=0.3,rely=0.55,relwidth=0.5)
 camera_view_label = ttk.Label(gui, text='CAM VIEW', background='light grey', font='bold')
 camera_view_label.place(relx=0.425,rely=0.45)
 
-def video_stream():
-    _,frame = cap.read()
-    cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-    img = Image.fromarray(cv2image)
-    imgtk = ImageTk.PhotoImage(image=img)
-    lmain.imgtk = imgtk
-    lmain.configure(image=imgtk)
-    lmain.after(1,video_stream)
-
-
 canvas = tk.Canvas(gui, background='red')
 canvas.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
-lmain = Label(canvas)
-lmain.grid()
 
 # frame2 = tk.Frame(gui, background='white')
 # frame2.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
 
-video_stream()
-gui.mainloop()
+gui.mainloop() 
