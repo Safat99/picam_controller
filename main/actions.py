@@ -1,5 +1,7 @@
 from brightpi import *
-import time
+
+brightpi = BrightPi()
+brightpi.reset()
 
 led_white = [1,2,3,4]
 led_ir = [5,6,7,8]## in pairs ##8 ir
