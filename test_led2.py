@@ -1,22 +1,20 @@
 from brightpi import *
 import time
 
-brightpi = BrightPi()
-brightpi.reset()
-
-brightpi.set_gain(15)
+brightSpecial = BrightPiSpecialEffects()
+brightSpecial.reset()
 
 led_white = [1,2,3,4]
 led_ir = [5,6,7,8]## in pairs ##8 ir
 led_all = [1,2,3,4,5,6,7,8]
 
 def led_on(leds):
-    brightpi.set_led_on_off(leds, ON)
+    brightSpecial.set_led_on_off((1,2,3,4), 1)
 def led_off(leds):
-    brightpi.set_led_on_off(leds,OFF)
+    brightSpecial.set_led_on_off((1,2,3,4), 0)
 
 def brightness_adjust(brightness):
-    brightpi.set_gain(brightness)# 0<=gain<=15
+    brightSpecial.set_gain(brightness)# 0<=gain<=15
 
 
 if __name__ == '__main__':

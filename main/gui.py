@@ -51,11 +51,11 @@ value_label.place(relx=0.5, rely=0.15)
 def slider_changed(event):
     value_label.configure(text=get_current_value())
     # print(brightness_slider.get()) ##for getting the value
-    brightness = brightness_slider.get()*15//100 ## set_gain limitaions
+    brightness = int(brightness_slider.get()*15//100) ## set_gain limitaions
     if brightness == 0:
-        actions.led_off(actions.led_white)
+        actions.led_off(actions.led_ir)
     else:
-        actions.led_on(brightness=brightness,leds=actions.led_white)
+        actions.led_on(brightness=brightness,leds=actions.led_ir)
 slider_label = ttk.Label(frame, text='Brightness:', background='white')
 slider_label.place(relx = 0.3, rely=0.15)
 
@@ -117,5 +117,5 @@ lmain.grid()
 # frame2 = tk.Frame(gui, background='white')
 # frame2.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
 
-video_stream()
+# video_stream()
 gui.mainloop()
