@@ -72,7 +72,7 @@ def take_snapshot():
     #saving
     _,frame = cap.read()
     cv2.imwrite(filename=filename, img=frame)
-    actions.led_off(leds=actions.led_off)
+    actions.led_off(leds=actions.led_white)
 
 button_snap = tk.Button(frame, text='SNAP', bg='black', fg='white', command=take_snapshot)
 button_snap.place(relx=0.1,rely=0.5)
@@ -119,5 +119,5 @@ lmain.grid()
 # frame2 = tk.Frame(gui, background='white')
 # frame2.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
 
-# video_stream()
+video_stream()
 gui.mainloop()
