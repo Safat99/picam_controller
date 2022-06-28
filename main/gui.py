@@ -66,11 +66,13 @@ brightness_slider.place(relx=0.3, rely=0.25, relwidth=0.5)
 
 ######################################<< snap >>##########################################
 def take_snapshot():
+    actions.led_on(15,leds=actions.led_white)
     ts = datetime.now()
     filename = "{}.jpg".format(ts.strftime("%Y-%m-%d_%H-%M-%S"))
     #saving
     _,frame = cap.read()
     cv2.imwrite(filename=filename, img=frame)
+    actions.led_off(leds=actions.led_off)
 
 button_snap = tk.Button(frame, text='SNAP', bg='black', fg='white', command=take_snapshot)
 button_snap.place(relx=0.1,rely=0.5)
