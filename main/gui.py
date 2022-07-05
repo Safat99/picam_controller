@@ -5,8 +5,7 @@ from PIL import ImageTk, Image
 import cv2
 import actions
 from datetime import datetime
-
-from numpy import take
+import threading
 
 
 # messagebox.showinfo("hello","welcome to picam controller")
@@ -14,6 +13,7 @@ gui = tk.Tk()
 gui.configure(background="light grey")
 gui.title("picam controller")
 gui.geometry("800x600")
+panel = None
 
 frame = tk.Frame(gui, background='white')
 frame.place(relheight=0.4, relwidth=0.7, relx=0.15, rely=0)
@@ -102,22 +102,44 @@ camera_view_label = ttk.Label(gui, text='CAM VIEW', background='light grey', fon
 camera_view_label.place(relx=0.425,rely=0.45)
 
 def video_stream():
-    _,frame = cap.read()
-    cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-    img = Image.fromarray(cv2image)
-    imgtk = ImageTk.PhotoImage(image=img)
-    lmain.imgtk = imgtk
-    lmain.configure(image=imgtk)
-    lmain.after(1,video_stream)
+    global panel
+    try:
+        while not stopEvent.isset():
+            _,frame = cap.read()
+            cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+            img = Image.fromarray(cv2image)
+            imgtk = ImageTk.PhotoImage(image=img)
+            ###updates the image panel by the config
+            if panel is None:
+                panel = tk.Label(canvas)
+                panel.imgtk = imgtk
+                panel.pack()
+            else:
+                panel.configure(image=imgtk)
+                panel.imgtk = imgtk
+                panel.pack()
+    except RuntimeError:
+        print("caught a runtime error")
 
+##########################################3
+
+stopEvent = threading.Event()
+thread = threading.Thread(target=video_stream,args=())
+thread.start()
 
 canvas = tk.Canvas(gui, background='red')
 canvas.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
-lmain = Label(canvas)
-lmain.grid()
 
 # frame2 = tk.Frame(gui, background='white')
 # frame2.place(relheight=0.5, relwidth=0.7, relx=0.15, rely=0.5,)
 
 # video_stream()
+
+#############
+def onClose():
+    print("closing...")
+    stopEvent.set()
+    gui.quit()
+
+gui.protocol("WM_DELETE_WINDOW", onClose)
 gui.mainloop()
