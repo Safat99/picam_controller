@@ -104,7 +104,7 @@ camera_view_label.place(relx=0.425,rely=0.45)
 def video_stream():
     global panel
     try:
-        while not stopEvent.isset():
+        while not stopEvent.is_set():
             _,frame = cap.read()
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
             img = Image.fromarray(cv2image)
